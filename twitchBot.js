@@ -4,7 +4,7 @@
 	Currency System
 		-Join = 1 point (First time = 5 p)
 		-RPG/Game?
-		-!bank - Returns users currency 
+		-!bank - Returns users currency
 		-!top10 - Returns top10
 		-!trade <amount> <user> - Give your currency to someone
 
@@ -20,7 +20,8 @@
 
 var irc = require("tmi.js");
 var request = require('request');
-
+var functions = require('./modules/functions')
+var chalk = require('chalk');
 
 var options = {
 		options: {
@@ -31,8 +32,8 @@ var options = {
 			reconnect: true
 		},
 		identity: {
-			username: "", // Twitch username
-			password: "oauth:" // Twitch OAuth Key (Get it from: https://twitchapps.com/tmi/)
+			username: "videoyun", // Twitch username
+			password: "oauth:sy8sfpni5dpbs93jqbjn5kohhfbc14" // Twitch OAuth Key (Get it from: https://twitchapps.com/tmi/)
 		},
 		channels: ["#videoyun"] // Twitch channel that bot going to connect
 	};
@@ -41,7 +42,7 @@ var client = new irc.client(options);
 
 
 client.addListener('disconnect', function (reason) {
-	console.log ("Disconnected because "+ reason);	
+	console.log ("Disconnected because "+ reason);
 })
 
 client.addListener('chat', function (channel, user, message) {
@@ -56,7 +57,7 @@ client.addListener('chat', function (channel, user, message) {
 		client.say(channel, "Keepo");
 	}
 	else if(message.toLowerCase() === "!mmr"){
-		var mmr = Math.floor((Math.random() * 8000) + 1);
+		var mmr = function.randomNumberGen(8500)
 		client.say(channel, "Bakalım MMR'ın kaç " + user.username);
 		if (mmr > 6000){
 			client.say(channel, user.username + " MMR'ı : " + mmr + " CoolCat");
@@ -72,7 +73,7 @@ client.addListener('chat', function (channel, user, message) {
 		}
 	}
 	else if(msg.indexOf("!rulet") === 0){
-		var roulette = Math.floor((Math.random() * 6) + 1);
+		var roulette = randomNumberGen(6);
 		client.say(channel, user.username + " kafasına silahı dayadı ve tetiği çekti.");
 		console.log(roulette);
 		if(roulette === 1){
@@ -83,13 +84,13 @@ client.addListener('chat', function (channel, user, message) {
 		}
 	}
 	else if(msg.indexOf("!rps") === 0){
-		/* 
+		/*
 		RPS = 1 Rock
 		RPS = 2 Paper
 		RPS = 3 Scissors
 		*/
 		if (args[1] !== undefined){
-			var rps = Math.floor((Math.random() * 3) + 1);
+			var rps = randomNumberGen(3);
 			if (args[1] === "taş"){
 				if (rps === 1)
 					client.say(channel, "@" + user.username + ", bot taş oynadı. Berabere kaldın! ResidentSleeper");
@@ -124,7 +125,7 @@ client.addListener('chat', function (channel, user, message) {
 			client.say(channel, "Yanlış komut! !aşk tan sonra birinin ismini koy. FailFish");
 		}
 		else{
-			var love = Math.floor((Math.random() * 100) +1);
+			var love = randomNumberGen(100);
 			client.say(channel, "@" + user.username + " ile " + args[1] + " arasındaki aşk %" + love + " bleedPurple");
 		}
 	}
@@ -140,13 +141,13 @@ client.addListener('chat', function (channel, user, message) {
 				follow = follow.replace(/weeks,|week,|weeks|week/, ' hafta ');
 				follow = follow.replace(/days,|day,|days|day/, ' gün ');
 				follow = follow.replace(/hours,|hour,|hours|hour/, ' saat ');
-				follow = follow.replace(/minutes,|minute,|minutes|minute/, ' dakika ');	
-				follow = follow.replace(/seconds,|second,|seconds|second/, ' saniye ');																																																											
+				follow = follow.replace(/minutes,|minute,|minutes|minute/, ' dakika ');
+				follow = follow.replace(/seconds,|second,|seconds|second/, ' saniye ');
 				console.log(follow);
 				client.say(channel, "@" + user.username + ", takip süren: " + follow);
 			}
 			else {
-				client.say(channel, "@" + user.username, ", takip etmiyorsun");				
+				client.say(channel, "@" + user.username, ", takip etmiyorsun");
 			}
 		});
 	}
@@ -174,4 +175,3 @@ client.addListener('chat', function (channel, user, message) {
 })
 
 client.connect();
-
