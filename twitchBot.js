@@ -1,42 +1,23 @@
 /*
 	To-do List
-
 	Currency System
 		-Join = 1 point (First time = 5 p)
 		-RPG/Game?
 		-!bank - Returns users currency
 		-!top10 - Returns top10
 		-!trade <amount> <user> - Give your currency to someone
-
 	Twitch API
 		-!uptime - Returns uptime
-
 	Games
-
-
 */
 
 var irc = require("tmi.js");
 var request = require('request');
 var functions = require('./modules/functions')
 var chalk = require('chalk');
+var config = require('./config');
 
-var options = {
-		options: {
-			debug: true // Enables debug mode which logs chat
-		},
-		connection: {
-			random: "chat",
-			reconnect: true
-		},
-		identity: {
-			username: "videoyun", // Twitch username
-			password: "oauth:" // Twitch OAuth Key (Get it from: https://twitchapps.com/tmi/)
-		},
-		channels: ["#videoyun"] // Twitch channel that bot going to connect
-	};
-
-var client = new irc.client(options);
+var client = new irc.client(config.options);
 
 
 client.addListener('disconnect', function (reason) {
