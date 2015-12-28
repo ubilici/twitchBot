@@ -1,0 +1,6 @@
+{
+	admin: 3,
+	moderator: 2,
+	subscriber: 1,
+	viewer: 0
+}
