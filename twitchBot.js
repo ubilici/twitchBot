@@ -9,11 +9,9 @@
 		-!trade <amount> <user> - Give your currency to someone
 
 	Twitch API
-		-!follow - Returns follow time
 		-!uptime - Returns uptime
 
 	Games
-		- Rock Paper Scissors
 
 
 */
@@ -33,7 +31,7 @@ var options = {
 		},
 		identity: {
 			username: "videoyun", // Twitch username
-			password: "oauth:sy8sfpni5dpbs93jqbjn5kohhfbc14" // Twitch OAuth Key (Get it from: https://twitchapps.com/tmi/)
+			password: "oauth:" // Twitch OAuth Key (Get it from: https://twitchapps.com/tmi/)
 		},
 		channels: ["#videoyun"] // Twitch channel that bot going to connect
 	};
@@ -57,7 +55,7 @@ client.addListener('chat', function (channel, user, message) {
 		client.say(channel, "Keepo");
 	}
 	else if(message.toLowerCase() === "!mmr"){
-		var mmr = function.randomNumberGen(8500)
+		var mmr = functions.randomNumberGen(8500)
 		client.say(channel, "Bakalım MMR'ın kaç " + user.username);
 		if (mmr > 6000){
 			client.say(channel, user.username + " MMR'ı : " + mmr + " CoolCat");
@@ -73,7 +71,7 @@ client.addListener('chat', function (channel, user, message) {
 		}
 	}
 	else if(msg.indexOf("!rulet") === 0){
-		var roulette = randomNumberGen(6);
+		var roulette = functions.randomNumberGen(6);
 		client.say(channel, user.username + " kafasına silahı dayadı ve tetiği çekti.");
 		console.log(roulette);
 		if(roulette === 1){
@@ -90,7 +88,7 @@ client.addListener('chat', function (channel, user, message) {
 		RPS = 3 Scissors
 		*/
 		if (args[1] !== undefined){
-			var rps = randomNumberGen(3);
+			var rps = functions.randomNumberGen(3);
 			if (args[1] === "taş"){
 				if (rps === 1)
 					client.say(channel, "@" + user.username + ", bot taş oynadı. Berabere kaldın! ResidentSleeper");
@@ -125,7 +123,7 @@ client.addListener('chat', function (channel, user, message) {
 			client.say(channel, "Yanlış komut! !aşk tan sonra birinin ismini koy. FailFish");
 		}
 		else{
-			var love = randomNumberGen(100);
+			var love = functions.randomNumberGen(100);
 			client.say(channel, "@" + user.username + " ile " + args[1] + " arasındaki aşk %" + love + " bleedPurple");
 		}
 	}
